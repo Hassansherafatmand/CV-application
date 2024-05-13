@@ -1,0 +1,230 @@
+
+/* Define a custom font family */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Apply the font family to your elements */
+body {
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  
+}
+
+ul{
+  margin :0;
+}
+ul li{
+  list-style-type: none;
+  display: block;
+}
+h1, h2, h3 {
+  /* Add your font styles for headings */
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+}
+span{
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #3e3e3e;
+
+}
+h2 {
+  color:  #F1BB1B;
+  font-size: 24px;
+}
+
+p {
+  max-width: 100%; 
+  overflow-wrap: break-word; 
+  color: #3e3e3e;
+  padding:0px  20px;
+}
+
+/*Structure of the Webpage */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Cv_form div */
+.cv-form{
+  grid-column: span 4;
+ 
+}
+
+/* display form  div */
+.dispaly-form{
+  grid-column: span 8;
+ 
+}
+main{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  margin-top: 10px;
+ 
+}
+aside{
+  grid-column: span 3;
+  
+  padding: 10px;
+}
+aside form{
+  margin-left: 20px;
+}
+section{
+  grid-column: span 6;
+ 
+}
+/* Header************************* */
+
+header {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr); /* Divide the header into 9 columns */
+  align-items: center; /* Center content vertically */
+}
+.img {
+  grid-column: span 3;  /* Expands the image section to 3 columns */
+}
+.img {
+  width: 200px;  /* Ensures image fills container */
+  height: 200px;  /* Maintains image aspect ratio */
+  border-radius: 50%; 
+  background-color: #F1BB1B;
+}
+.individual-name {
+  grid-column: span 6;  /* Expands the name section to 6 columns */
+  text-align: center;  /* Centers content within the name section */
+  margin-left : 50px;
+
+  
+}
+
+/* Person Form */
+.person-info, .contact-info, .about-info, .experience-info{
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 5px;
+}
+
+header h1, header h3{
+  color: #3e3e3e;
+}
+
+ form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #3e3e3e;
+}
+
+ input[type="text"], .experience-info ul input[type="text"]{
+  border-radius: 5px;
+  background-color: #f8f8f8;       
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  color: #3e3e3e;
+  border: 1px solid #ccc;
+  display: block;
+ 
+}
+input[type="email"] {
+  border-radius: 5px;
+  background-color: #f8f8f8;       
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  color: #3e3e3e;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+input[type="date"]{
+  border-radius: 5px;
+  background-color: #f8f8f8;       
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  color: #3e3e3e;
+  padding: 10px;
+  border: 1px solid #ccc;
+  
+}
+textarea {   
+  border-radius: 5px;
+  background-color: #f8f8f8;       
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  color: #3e3e3e;
+  border: 1px solid #ccc;
+  resize: vertical; /* Allow vertical resizing */
+
+}
+
+aside form input[type="text"], aside form input[type="email"], aside textarea{
+  background-color: white;
+  border: none;
+}
+
+aside form textarea{
+  resize: none;
+}
+/* Section About me */
+main{
+
+}
+aside, section{
+ 
+}
+main section{
+  border-top:25px solid #F1BB1B;;
+}
+main  h2{
+  text-align: center;
+}
+
+
+.experience-info  form{
+  width: 100%
+}
+.experience-info input{
+  width: 90%;
+  margin-top:5px;
+}
+section.experiance{
+  grid-column: span 9;
+
+}
+section.experiance h2{
+  text-align: left;
+  padding-left: 20px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  border-color: #F1BB1B;
+  outline: none;
+}
+
+button {
+  background-color: #F1BB1B;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #E8A609;
+}
+
+

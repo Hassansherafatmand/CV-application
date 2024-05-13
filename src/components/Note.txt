@@ -1,0 +1,302 @@
+ <header className="grid-container">
+        <div className="img">
+          {/* Placeholder div */}
+          <div className="placeholder"></div>
+        </div>
+        <div className="individual-name">
+          <PersonalInfo onChange={handlePersonalInfoUpdate}/>
+          <h1>{userName.fullname}</h1>
+          <h2></h2>
+        </div>
+ </header>
+  <main className="grid-container">
+    <section className="contact-info">
+      <h3>Contact</h3>
+      <ul>
+        <li>Phone: +2434-232-534234</li>
+        <li>Email: <a href="mailto:travis.anderson@mail.com">travis.anderson@mail.com</a></li>
+        <li>Website: <a href="http://travisanderson.com">travisanderson.com</a></li>
+        <li>Area: 715 Arlington Avenue, Oak Ridge, Tn 35785</li>
+      </ul>
+    </section>
+    <section className="about-me">
+      <h3>About Me</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </section>
+  </main>
+      <footer className="grid-container">
+        <p>&copy; 2024 Travis Anderson</p>
+      </footer>
+
+      /* Responsive styles for tablets and mobiles (screens less than 768px wide) */
+
+@media (max-width: 768px) {
+.grid-container {
+grid-template-columns: 1fr; /_ Makes the container a single column _/
+}
+
+.contact-info,
+.about-me {
+grid-column: span 9; /_ Expands both sections to full width on small screens _/
+}
+}
+
+/_ You can add more styles for specific sections here _/
+
+
+//Input change function for updating user info
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setUserInfo(prevInfo => ({
+    ...prevInfo,
+    [name]: value
+  }));
+  props.onChange({ ...userInfo, [name]: value });
+};
+
+
+*************************************************************
+Using useEffect Hook:
+const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setPerson((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    onChange(person);
+  }, [person, onChange]);
+================
+  Using Callback Function with setPerson:
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setPerson((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }), () => {
+      // This callback function is called after the state has been updated
+      onChange(person);
+    });
+  };
+=================
+In React, state updates may be asynchronous, meaning that when you call setState, React may not immediately update the state. This can lead to unexpected behavior when you try to use the updated state immediately after calling setState.
+
+In your case, when you call onChange(person) immediately after setPerson, there's no guarantee that person will have the updated value, because setPerson may not have completed its update by the time onChange is called.
+
+To ensure that onChange receives the updated person state, you have a couple of options:
+
+Using a Callback Function: You can pass a callback function to setPerson that will be executed after the state has been updated. This ensures that onChange receives the updated person state. This is what you're currently doing with (prevState) => ({ ...prevState, [name]: value }).
+
+Using useEffect: You can use useEffect to watch for changes in the person state and call onChange whenever it changes. This way, onChange will always receive the latest person state. This is an alternative approach that can be useful in certain situations, especially if you want to perform side effects whenever the state changes.
+
+Both approaches are valid, and the choice between them depends on your specific use case and preferences. If you're comfortable with the callback function approach and it's working fine for you, there's no need to switch to useEffect. However, if you're curious to learn about different patterns in React or if you encounter situations where useEffect might be more suitable, it's worth exploring.
+
+Certainly! Let's break down the useEffect hook and its usage in the provided code:
+=========================
+useEffect(() => {
+    onChange(person);
+  }, [person, onChange]);
+useEffect: useEffect is a built-in React hook that allows you to perform side effects in function components. Side effects can include things like fetching data, subscribing to external events, or updating the DOM. It's similar to lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount in class components.
+
+Callback Function: The first argument to useEffect is a callback function. This function will be executed after every render if any of the dependencies listed in the dependency array ([person, onChange]) have changed. In this case, the callback function is simply calling onChange(person).
+
+Dependency Array: The second argument to useEffect is an array of dependencies. These dependencies determine when the callback function should be executed. If any of the dependencies change between renders, the callback function will be called. If the dependency array is empty, the callback function will only be executed once after the initial render.
+
+In the provided code:
+
+The useEffect hook is being used to call the onChange function whenever the person state or the onChange function itself changes.
+This ensures that onChange is always called with the latest person state, even if it changes asynchronously due to state updates.
+*************************************************************
+
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedExperiences = [...experiences];
+    updatedExperiences[index] = {
+      ...updatedExperiences[index],
+      [name]: value,
+    };
+    setExperiences(updatedExperiences);
+  };
+
+  const handleResponsibilityChange = (e, expIndex, respIndex) => {
+    const { value } = e.target;
+    const updatedExperiences = [...experiences];
+    updatedExperiences[expIndex] = {
+      ...updatedExperiences[expIndex],
+      responsibilities: updatedExperiences[expIndex].responsibilities.map(
+        (resp, i) => (i === respIndex ? value : resp)
+      ),
+    };
+    setExperiences(updatedExperiences);
+  };
+
+  const addExperience = () => {
+    setExperiences([
+      ...experiences,
+      {
+        companyName: "",
+        position: "",
+        startDate: "",
+        endDate: "",
+        responsibilities: [],
+      },
+    ]);
+  };
+
+
+
+
+
+
+
+
+
+
+
+import { useState } from "react";
+
+const ExperianceInfo = () => {
+  const [experiences, setExperiences] = useState([
+    {
+      companyName: "",
+      position: "",
+      startDate: "",
+      endDate: "",
+      responsibilities: [],
+    },
+  ]);
+
+  const handleChangeInput = (e, index) => {
+    const { name, value } = e.target;
+    const updatedExperiences = [...experiences];
+    updatedExperiences[index] = {
+      ...updatedExperiences[index],
+      [name]: value,
+    };
+    setExperiences(updatedExperiences);
+  };
+
+  const addExperience = () => {
+    setExperiences([
+      ...experiences,
+      {
+        companyName: "",
+        position: "",
+        startDate: "",
+        endDate: "",
+        responsibilities: [],
+      },
+    ]);
+  };
+
+  return (
+    <div className="experience-info">
+      <h2>Experiences</h2>
+      <form className="application">
+        {experiences.map((experience, index) => (
+          <div key={index}>
+            <label htmlFor={`companyName_${index + 1}`}>Company Name:</label>
+            <input
+              type="text"
+              id={`companyName_${index + 1}`}
+              name="companyName"
+              value={experience.companyName}
+              onChange={(e) => handleChangeInput(e, index)}
+            />
+
+            <label htmlFor={`position_${index + 1}`}>Position:</label>
+            <input
+              type="text"
+              id={`position_${index + 1}`}
+              name="position"
+              value={experience.position}
+              onChange={(e) => handleChangeInput(e, index)}
+            />
+
+            <label htmlFor={`startDate_${index + 1}`}>Start Date:</label>
+            <input
+              type="date"
+              id={`startDate_${index + 1}`}
+              name="startDate"
+              value={experience.startDate}
+              onChange={(e) => handleChangeInput(e, index)}
+            />
+
+            <label htmlFor={`endDate_${index + 1}`}>End Date:</label>
+            <input
+              type="date"
+              id={`endDate_${index + 1}`}
+              name="endDate"
+              value={experience.endDate}
+              onChange={(e) => handleChangeInput(e, index)}
+            />
+
+            <div>
+              <label htmlFor={`responsibility_${index + 1}`}>
+                Responsibilities:
+              </label>
+              <ul>
+                {experience.responsibilities.map(
+                  (responsibility, respIndex) => (
+                    <li key={index}>
+                      <input value={responsibility} />
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </form>
+      <button onClick={addExperience}>Add Experience</button>
+    </div>
+  );
+};
+
+export default ExperianceInfo;
+
+
+
+
+
+
+ <form className="application">
+        <label htmlFor="companyName">Company Name:</label>
+        <input
+          type="text"
+          id="companyName"
+          name="companyName"
+          value={experiences.companyName}
+          // onChange={(e) => handleChangeInput(e, index)}
+        />
+
+        <label htmlFor="position">Position:</label>
+        <input
+          type="text"
+          id="position"
+          name="position"
+          value={experiences.position}
+          // onChange={(e) => handleChangeInput(e, index)}
+        />
+
+        <label htmlFor={`startDate_${index + 1}`}>Start Date:</label>
+        <input
+          type="date"
+          id={`startDate_${index + 1}`}
+          name="startDate"
+          value={experiences.startDate}
+          // onChange={(e) => handleChangeInput(e, index)}
+        />
+
+        <label htmlFor="endDate">End Date:</label>
+        <input
+          type="date"
+          id="endDate"
+          name="endDate"
+          value={experiences.endDate}
+          // onChange={(e) => handleChangeInput(e, index)}
+        />
+      </form>
+      {/* <button onClick={addExperience}>Add Experience</button> */}
